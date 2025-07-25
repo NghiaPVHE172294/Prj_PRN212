@@ -1,0 +1,112 @@
+<Window x:Class="ProjectWPF.StudentManage.SinhVienView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Quản lý sinh viên" Height="700" Width="980"
+        WindowStartupLocation="CenterScreen"
+        Background="#F4F8FB" FontFamily="Segoe UI">
+    <Border CornerRadius="14" Background="#FFFFFF" Padding="18" BorderBrush="#2196F3" BorderThickness="2" Margin="12">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <!-- Title -->
+                <RowDefinition Height="Auto"/>
+                <!-- Form nhập -->
+                <RowDefinition Height="Auto"/>
+                <!-- Tìm kiếm -->
+                <RowDefinition Height="*"/>
+                <!-- DataGrid -->
+                <RowDefinition Height="Auto"/>
+                <!-- Export -->
+            </Grid.RowDefinitions>
+
+            <!-- Title -->
+            <TextBlock Text="QUẢN LÝ SINH VIÊN" FontSize="22" FontWeight="Bold" Foreground="#1976D2"
+                       HorizontalAlignment="Center" Margin="0,0,0,16" Grid.Row="0"/>
+
+            <!-- Form nhập dữ liệu -->
+            <Grid Grid.Row="1" Margin="0,0,0,10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Margin="5" Grid.Column="0">
+                    <TextBlock Text="Mã Số"/>
+                    <ComboBox Width="180"
+                              ItemsSource="{Binding DanhSachMaSoAccount}"
+                              SelectedValuePath="."
+                              SelectedValue="{Binding SelectedSinhVien.MaSo, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                    <TextBlock Text="Ngày Sinh" Margin="0,10,0,0"/>
+                    <DatePicker SelectedDate="{Binding NgaySinhDateTime, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="180"/>
+                </StackPanel>
+
+                <StackPanel Margin="5" Grid.Column="1">
+                    <TextBlock Text="Họ Tên"/>
+                    <TextBox Text="{Binding SelectedSinhVien.HoTen, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="180"/>
+                    <TextBlock Text="Giới Tính" Margin="0,10,0,0"/>
+                    <ComboBox Width="180"
+          SelectedValue="{Binding SelectedSinhVien.GioiTinh, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+          SelectedValuePath="Tag">
+                        <ComboBoxItem Content="Nam" Tag="True"/>
+                        <ComboBoxItem Content="Nữ" Tag="False"/>
+                    </ComboBox>
+
+                </StackPanel>
+
+                <StackPanel Margin="5" Grid.Column="2">
+                    <TextBlock Text="Địa Chỉ"/>
+                    <TextBox Text="{Binding SelectedSinhVien.DiaChi, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="180"/>
+                    <TextBlock Text="Mã Khoa" Margin="0,10,0,0"/>
+                    <ComboBox Width="180"
+          ItemsSource="{Binding DanhSachKhoa}"
+          SelectedItem="{Binding SelectedSinhVien.MaKhoa, Mode=TwoWay}" />
+
+                </StackPanel>
+
+                <StackPanel Margin="5" Grid.Column="3">
+                    <TextBlock Text="Điện Thoại"/>
+                    <TextBox Text="{Binding SelectedSinhVien.DienThoai, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="180"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
+                        <Button Content="Thêm" Width="70" Margin="2" Command="{Binding AddCommand}"/>
+                        <Button Content="Sửa" Width="70" Margin="2" Command="{Binding UpdateCommand}"/>
+                        <Button Content="Xóa" Width="70" Margin="2" Command="{Binding DeleteCommand}"/>
+                        <Button Content="Làm mới" Width="80" Margin="2" Command="{Binding RefreshCommand}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Grid>
+
+            <!-- Tìm kiếm -->
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="0,0,0,10" Grid.Row="2">
+                <TextBox Width="180" Margin="5" Text="{Binding SearchText, UpdateSourceTrigger=PropertyChanged}"/>
+                <ComboBox Width="140" Margin="5" ItemsSource="{Binding DanhSachKhoa}" SelectedItem="{Binding SelectedKhoa, Mode=TwoWay}"/>
+                <Button Content="Tìm kiếm" Width="100" Margin="5" Command="{Binding SearchCommand}" 
+                        Background="#2196F3" Foreground="White" FontWeight="SemiBold" BorderThickness="0"/>
+            </StackPanel>
+
+            <!-- DataGrid -->
+            <DataGrid ItemsSource="{Binding SinhViens}" SelectedItem="{Binding SelectedSinhVien, Mode=TwoWay}"
+                      AutoGenerateColumns="False" Grid.Row="3" Margin="0,0,0,10"
+                      RowBackground="#E3F2FD" AlternatingRowBackground="#BBDEFB"
+                      BorderBrush="#90CAF9" BorderThickness="1" Background="White"
+                      RowHeight="32" ColumnHeaderHeight="38" FontSize="14">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Mã Số" Binding="{Binding MaSo}"/>
+                    <DataGridTextColumn Header="Họ Tên" Binding="{Binding HoTen}"/>
+                    <DataGridTextColumn Header="Ngày Sinh" Binding="{Binding NgaySinhText}"/>
+                    <DataGridTextColumn Header="Giới Tính" Binding="{Binding GioiTinhText}"/>
+                    <DataGridTextColumn Header="Địa Chỉ" Binding="{Binding DiaChi}"/>
+                    <DataGridTextColumn Header="Điện Thoại" Binding="{Binding DienThoai}"/>
+                    <DataGridTextColumn Header="Mã Khoa" Binding="{Binding MaKhoa}"/>
+                </DataGrid.Columns>
+            </DataGrid>
+
+            <!-- Export Excel -->
+            <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
+                <Button Content="Xuất Excel" Width="120" Margin="5" Command="{Binding ExportExcelCommand}" 
+                        Background="#43A047" Foreground="White" FontWeight="SemiBold" BorderThickness="0"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>

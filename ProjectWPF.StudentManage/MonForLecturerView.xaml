@@ -1,0 +1,19 @@
+<Window x:Class="ProjectWPF.StudentManage.MonForLecturerView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:ProjectWPF.StudentManage"
+        mc:Ignorable="d"
+        Title="Các môn giảng viên đảm nhận" Height="400" Width="600">
+    <Grid Background="#F8FAFF">
+        <TextBlock Text="Danh sách môn giảng viên đảm nhận" FontWeight="Bold" FontSize="18" Margin="0,10,0,0" HorizontalAlignment="Center"/>
+        <DataGrid ItemsSource="{Binding DanhSachMon}" AutoGenerateColumns="False" Margin="20,50,20,20" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Mã Môn" Binding="{Binding MaMh}" Width="*"/>
+                <DataGridTextColumn Header="Tên Môn" Binding="{Binding TenMh}" Width="2*"/>
+                <DataGridTextColumn Header="Số tiết" Binding="{Binding SoTiet}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

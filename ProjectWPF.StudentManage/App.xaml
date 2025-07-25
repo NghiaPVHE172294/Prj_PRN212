@@ -1,0 +1,9 @@
+<Application x:Class="ProjectWPF.StudentManage.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:converters="clr-namespace:ProjectWPF.StudentManage.Converters"
+             xmlns:local="clr-namespace:ProjectWPF.StudentManage">
+    <Application.Resources>
+        <converters:RoleToVisibilityConverter x:Key="RoleToVisibilityConverter" />
+    </Application.Resources>
+</Application>

@@ -1,0 +1,17 @@
+<Window x:Class="ProjectWPF.StudentManage.StudentScoreView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Kết Quả Học Tập" Height="420" Width="650"
+        WindowStartupLocation="CenterScreen">
+    <Grid Background="#F8FAFF">
+        <TextBlock Text="Kết Quả Học Tập" FontWeight="Bold" FontSize="20" Margin="0,10,0,10" HorizontalAlignment="Center"/>
+        <DataGrid ItemsSource="{Binding DanhSachDiem}" AutoGenerateColumns="False" Margin="20,50,20,20" IsReadOnly="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Mã môn" Binding="{Binding MaMh}" Width="*"/>
+                <DataGridTextColumn Header="Tên môn" Binding="{Binding MaMhNavigation.TenMh}" Width="2*"/>
+                <DataGridTextColumn Header="Số tiết" Binding="{Binding MaMhNavigation.SoTiet}" Width="*"/>
+                <DataGridTextColumn Header="Điểm" Binding="{Binding Diem}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>
